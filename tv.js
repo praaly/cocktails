@@ -90,7 +90,7 @@
         width:'50%',
         backgroundColor: "#333",
         alignItems: 'center',
-        justifyContent: 'space-around', 
+        justifyContent: 'space-around',
         padding:10,
     },
     boxBlue: {
