@@ -30,7 +30,6 @@ import axios from 'axios';
 import {PROPERTY_TYPES} from '@babel/types';
 const Tv = () => {
   const [valueSearch, setValueSearch] = useState('');
-
   useMemo(() => {
     {
       const kraken = axios.create({
@@ -49,22 +48,6 @@ const Tv = () => {
 
   const Stack = createNativeStackNavigator();
   const [data, setData] = useState([]);
-  useEffect(() => {
-    setTimeout(() => {
-      const kraken = axios.create({
-        baseURL: 'www.thecocktaildb.com/api/json/v1/1/search.php',
-      });
-      kraken
-        .get('?s=' + {valueSearch})
-        .then(function (response) {
-          setData(response.data.drinks);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    }, 5000);
-  });
-
   const HomeScreen = ({navigation}) => {
     return (
       <SafeAreaView style={styles.box}>
@@ -72,8 +55,9 @@ const Tv = () => {
           style={styles.searchBar}
           placeholder="Search"
           onChangeText={setValueSearch}
-          defaultValue={valueSearch}
+          value={valueSearch}
         />
+        <TextInput style={styles.searchBar} onChangeText={setValueSearch} />
         <View style={styles.titleBox}>
           <Text style={styles.title}>TWITCH SEARCH</Text>
         </View>

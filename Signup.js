@@ -1,6 +1,7 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect, useMemo, useState} from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {useNavigation} from '@react-navigation/native';
+
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,28 +9,29 @@ import {
   Text,
   View,
   TextInput,
-  Button,
-  Alert,
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
 
-const Stack = createNativeStackNavigator();
-
-const Login = ({navigation}) => {
+const SignUp = ({navigation}) => {
   const [email, setFirstName] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(false);
 
   useEffect(() => {
     setIsPasswordValid(password.length > 3);
   }, [password]);
 
+  const equalPwds = useMemo(() => {
+    return password === passwordConfirmation;
+  }, [password, passwordConfirmation]);
+
   return (
     <SafeAreaView>
       <ScrollView keyboardShouldPersistTaps="handled">
         <View style={styles.container}>
-          <Text style={styles.titleText}>Login</Text>
+          <Text style={styles.titleText}>SignUp</Text>
           <Image
             style={styles.profil}
             source={{
@@ -40,7 +42,7 @@ const Login = ({navigation}) => {
             <TextInput
               style={styles.input}
               placeholder="Email"
-              value={email}
+              defaultValue={email}
               onChangeText={setFirstName}
             />
             <TextInput
@@ -53,35 +55,18 @@ const Login = ({navigation}) => {
               value={password}
               onChangeText={setPassword}
             />
+            <TextInput
+              style={[[styles.input, equalPwds ? undefined : styles.borderRed]]}
+              placeholder="Confirm Password"
+              secureTextEntry={true}
+              value={passwordConfirmation}
+              onChangeText={setPasswordConfirmation}
+            />
             <TouchableOpacity
-              style={styles.buttonLogin}
               onPress={() => {
-                navigation.navigate('Home');
+                navigation.navigate('Login');
               }}>
-              <Text
-                style={{
-                  color: 'white',
-                  textAlign: 'center',
-                  height: 30,
-                  paddingTop: 5,
-                }}>
-                Login
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonLogin}
-              onPress={() => {
-                navigation.navigate('Signup');
-              }}>
-              <Text
-                style={{
-                  color: 'white',
-                  textAlign: 'center',
-                  height: 30,
-                  paddingTop: 5,
-                }}>
-                Create account
-              </Text>
+              <Text>signUp</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -94,7 +79,6 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
   },
-
   titleText: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -109,7 +93,7 @@ const styles = StyleSheet.create({
   input: {
     height: 40,
     borderRadius: 20,
-    borderWidth: 1,
+    borderWidth: 2,
     padding: 10,
     marginBottom: 20,
     width: 300,
@@ -117,12 +101,6 @@ const styles = StyleSheet.create({
   borderRed: {
     borderColor: 'red',
   },
-  buttonLogin: {
-    borderWidth: 2,
-    backgroundColor: 'blue',
-    borderRadius: 10,
-    marginTop: 10,
-  },
 });
 
-export default Login;
+export default SignUp;

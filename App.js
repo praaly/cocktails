@@ -7,62 +7,26 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TextInput,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import HomeScreen from './HomeScreen';
+import DetailsScreen from './DetailsScreen';
+import LoginScreen from './Login';
+import SignUp from './Signup';
 
+const App = () => {
+  const Stack = createNativeStackNavigator();
 
-const App=() => {
   return (
-    <SafeAreaView style={styles.box}> 
-     <View style={styles.boxRed}>
-
-     </View>     
-     <View style={styles.boxGreen}>
-
-      <View style={styles.thirdClass}></View>
-      <View style={styles.thirdClass}></View>
-      <View style={styles.thirdClass}></View>
-
-     </View>
-     <View style={styles.boxBlue}>
-       
-       </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Signup" component={SignUp} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Details" component={DetailsScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-const styles = StyleSheet.create({
-  box: {
-    flex: 1,
-  },
-  boxRed: {
-    flex: 1,
-    backgroundColor: 'red'
-  },
-  boxGreen: {
-    flex: 1,
-    flexDirection : 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around', 
-    backgroundColor: 'green'
-
-  },
-  boxBlue: {
-    flex: 3,
-    backgroundColor: 'blue'
-  },
-  thirdClass: {
-    height: 50,
-    width: 50,
-    backgroundColor: 'yellow'
-  },
-});
 
 export default App;

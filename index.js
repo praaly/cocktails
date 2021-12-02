@@ -10,4 +10,4 @@ import TodoList from './todolist';
 import Tv from './tv';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => Tv);
+AppRegistry.registerComponent(appName, () => App);
