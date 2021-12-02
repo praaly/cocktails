@@ -7,7 +7,7 @@ import App from './App';
 import Login from './Login';
 import Contact from './contact';
 import TodoList from './todolist';
-import tv from './tv';
+import Tv from './tv';
 import {name as appName} from './app.json';
 
-AppRegistry.registerComponent(appName, () => tv);
+AppRegistry.registerComponent(appName, () => Tv);
