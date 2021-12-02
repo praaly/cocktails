@@ -63,10 +63,19 @@ const SignUp = ({navigation}) => {
               onChangeText={setPasswordConfirmation}
             />
             <TouchableOpacity
+              style={styles.buttonSignUp}
               onPress={() => {
                 navigation.navigate('Login');
               }}>
-              <Text>signUp</Text>
+              <Text
+                style={{
+                  color: 'white',
+                  textAlign: 'center',
+                  height: 30,
+                  paddingTop: 5,
+                }}>
+                SignUp
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -100,6 +109,12 @@ const styles = StyleSheet.create({
   },
   borderRed: {
     borderColor: 'red',
+  },
+  buttonSignUp: {
+    borderWidth: 2,
+    backgroundColor: 'blue',
+    borderRadius: 10,
+    marginTop: 10,
   },
 });
 
