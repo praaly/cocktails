@@ -1,6 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   SafeAreaView,
@@ -26,6 +27,55 @@ const SignUp = ({navigation}) => {
   const equalPwds = useMemo(() => {
     return password === passwordConfirmation;
   }, [password, passwordConfirmation]);
+
+  function validateMail() {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function validatePassword() {
+    if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(password)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const storeData = async value => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('@storage_Key', jsonValue);
+    } catch (e) {
+      // saving error
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('@user');
+      if (value !== null) {
+        console.log(value);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const validateSignUp = () => {
+    if (validateMail()) {
+      //   if (validatePassword() && password === passwordConfirmation) {
+      var userValues = {email, password};
+      storeData(userValues).then(getData().then(navigation.navigate('Login')));
+      //   } else {
+      //     console.log('triste');
+      //   }
+    } else {
+      console.log('triste');
+    }
+  };
 
   return (
     <SafeAreaView>
@@ -64,7 +114,7 @@ const SignUp = ({navigation}) => {
             />
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('Login');
+                validateSignUp();
               }}>
               <Text>signUp</Text>
             </TouchableOpacity>
