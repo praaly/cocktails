@@ -31,7 +31,7 @@ import {PROPERTY_TYPES} from '@babel/types';
 const Tv = () => {
   const [valueSearch, setValueSearch] = useState('');
 
-  const valueSearchChanged = useMemo(() => {
+  useMemo(() => {
     {
       const kraken = axios.create({
         baseURL: 'https://thecocktaildb.com/api/json/v1/1/search.php',
@@ -40,7 +40,6 @@ const Tv = () => {
         .get('?s=' + valueSearch)
         .then(function (response) {
           setData(response.data.drinks);
-          console.log(response.data.drinks);
         })
         .catch(function (error) {
           console.log(error);
@@ -51,17 +50,19 @@ const Tv = () => {
   const Stack = createNativeStackNavigator();
   const [data, setData] = useState([]);
   useEffect(() => {
-    const kraken = axios.create({
-      baseURL: 'www.thecocktaildb.com/api/json/v1/1/search.php',
-    });
-    kraken
-      .get('?s=' + {valueSearch})
-      .then(function (response) {
-        setData(response.data.drinks);
-      })
-      .catch(function (error) {
-        console.log(error);
+    setTimeout(() => {
+      const kraken = axios.create({
+        baseURL: 'www.thecocktaildb.com/api/json/v1/1/search.php',
       });
+      kraken
+        .get('?s=' + {valueSearch})
+        .then(function (response) {
+          setData(response.data.drinks);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }, 5000);
   });
 
   const HomeScreen = ({navigation}) => {
@@ -95,8 +96,7 @@ const Tv = () => {
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate('Details', {
-                        name: item.strDrink,
-                        test: data,
+                        data: item,
                       })
                     }>
                     <Text>Détails</Text>
@@ -112,8 +112,29 @@ const Tv = () => {
   };
 
   const DetailsScreen = props => {
-    console.log('data : ' + props.route);
-    return <Text>props : {props.route.params.name}</Text>;
+    const data = props.route.params.data;
+    const ingredients = [];
+    Object.keys(data).forEach((value, key) => {
+      if (value.startsWith('strIngredient') && data[value] != null) {
+        ingredients.push(data[value]);
+      }
+    });
+    return (
+      <FlatList
+        data={ingredients}
+        style={styles.flatBox}
+        numColumns={2}
+        renderItem={({item, index}) => {
+          return (
+            <View style={styles.todoFormClass}>
+              <Text style={styles.todoFormText} ref={index}>
+                {ingredients[index]}
+              </Text>
+            </View>
+          );
+        }}
+      />
+    );
   };
 
   return (
