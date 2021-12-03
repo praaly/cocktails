@@ -12,7 +12,7 @@ const DisconnectIcon = () => {
       onPress={() => {
         navigation.navigate('Login');
       }}>
-      <Icon name={'logout'} size={32} color={'red'} />
+      <Icon name={'logout'} size={32} color={'white'} />
     </TouchableOpacity>
   );
 };

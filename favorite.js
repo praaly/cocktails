@@ -12,7 +12,7 @@ const FavoriteIcon = () => {
       onPress={() => {
         navigation.navigate('FavoritePage');
       }}>
-      <Icon name={'favorite-outline'} size={32} color={'red'} />
+      <Icon name={'favorite-outline'} size={32} color={'white'} />
     </TouchableOpacity>
   );
 };
