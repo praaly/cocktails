@@ -62,7 +62,7 @@ const DetailsScreen = props => {
           }}
         />
       </View>
-      <Comment />
+      <Comment id={data.idDrink} />
     </View>
   );
 };

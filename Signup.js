@@ -90,7 +90,7 @@ const SignUp = ({navigation}) => {
           <Image
             style={styles.profil}
             source={{
-              uri: 'https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg',
+              uri: 'https://www.destinationcocktails.fr/wp-content/uploads/2021/06/079_tropicalkamasutra.jpg',
             }}
           />
           <View style={styles.formContainer}>
