@@ -4,14 +4,16 @@ import {StyleSheet, Text, View} from 'react-native';
 const FavoritePage = () => {
   return (
     <View style={styles.container}>
-      <Text>MY FAVIRITE LIST</Text>
+      <Text>MY FAVORITE LIST</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    textAlign: 'center',
+    margiLeft: 'auto',
+    marginRight: 'auto',
   },
 });
 
