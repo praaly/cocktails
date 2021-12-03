@@ -44,13 +44,9 @@ const SignUp = ({navigation}) => {
     }
   }
 
-  var users = [];
-  var test;
-
   const storeData = async () => {
     try {
-      const jsonValue = JSON.stringify({email, password});
-      await AsyncStorage.setItem('@user', jsonValue);
+      await AsyncStorage.setItem('user_' + email, password);
     } catch (e) {
       console.log(e);
     }
@@ -58,8 +54,8 @@ const SignUp = ({navigation}) => {
 
   const getData = async () => {
     try {
-      const jsonValue = await AsyncStorage.getItem('@user');
-      return jsonValue != null ? JSON.parse(jsonValue) : null;
+      const value = await AsyncStorage.getItem('user_' + email);
+      return value;
     } catch (e) {
       console.log('erreur : ' + e);
     }
@@ -67,17 +63,22 @@ const SignUp = ({navigation}) => {
 
   const validateSignUp = () => {
     if (validateMail()) {
-      const mailExists = async () => {
-        test = await getData();
-      };
-      mailExists();
-      if (test != null) {
-        storeData();
-        users = {...users, test};
-        console.log(users);
+      if (password === passwordConfirmation) {
+        getData().then(value => {
+          console.log(value);
+          if (!value) {
+            storeData();
+            alert('user successfully registered');
+            navigation.navigate('Login');
+          } else {
+            alert('user already exists');
+          }
+        });
+      } else {
+        alert('mots de passe non concordant');
       }
     } else {
-      console.log('mail non valide');
+      alert('mail non valide');
     }
   };
 

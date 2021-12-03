@@ -24,6 +24,29 @@ const Login = ({navigation}) => {
     setIsPasswordValid(password.length > 3);
   }, [password]);
 
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('user_' + email);
+      return value;
+    } catch (e) {
+      console.log('erreur : ' + e);
+    }
+  };
+
+  const tryLogin = async () => {
+    try {
+      getData().then(value => {
+        if (value === password) {
+          navigation.navigate('Home');
+        } else {
+          alert('Adresse mail ou mot de passe erronés');
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <SafeAreaView>
       <ScrollView keyboardShouldPersistTaps="handled">
@@ -55,7 +78,7 @@ const Login = ({navigation}) => {
             <TouchableOpacity
               style={styles.buttonLogin}
               onPress={() => {
-                navigation.navigate('Home');
+                tryLogin();
               }}>
               <Text
                 style={{
