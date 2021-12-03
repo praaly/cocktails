@@ -44,36 +44,40 @@ const SignUp = ({navigation}) => {
     }
   }
 
-  const storeData = async value => {
-    try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem('@storage_Key', jsonValue);
-    } catch (e) {
-      // saving error
-    }
-  };
+  var users = [];
+  var test;
 
-  const getData = async () => {
+  const storeData = async () => {
     try {
-      const value = await AsyncStorage.getItem('@user');
-      if (value !== null) {
-        console.log(value);
-      }
+      const jsonValue = JSON.stringify({email, password});
+      await AsyncStorage.setItem('@user', jsonValue);
     } catch (e) {
       console.log(e);
     }
   };
 
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('@user');
+      return jsonValue != null ? JSON.parse(jsonValue) : null;
+    } catch (e) {
+      console.log('erreur : ' + e);
+    }
+  };
+
   const validateSignUp = () => {
     if (validateMail()) {
-      //   if (validatePassword() && password === passwordConfirmation) {
-      var userValues = {email, password};
-      storeData(userValues).then(getData().then(navigation.navigate('Login')));
-      //   } else {
-      //     console.log('triste');
-      //   }
+      const mailExists = async () => {
+        test = await getData();
+      };
+      mailExists();
+      if (test != null) {
+        storeData();
+        users = {...users, test};
+        console.log(users);
+      }
     } else {
-      console.log('triste');
+      console.log('mail non valide');
     }
   };
 
