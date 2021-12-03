@@ -14,12 +14,17 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-
+/**
+ * @Login
+ * user must be logged to have access to the cocktails list
+ * @returns login page
+ **/
 const Login = ({navigation}) => {
   const [email, setFirstName] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(false);
 
+  //check if the password is more than 3 characters
   useEffect(() => {
     setIsPasswordValid(password.length > 3);
   }, [password]);
