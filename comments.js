@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
   Text,
   TouchableOpacity,
@@ -14,15 +14,36 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
  * Send a simple comment
  * @returns comment page
  **/
-const Comment = () => {
+const Comment = props => {
   const [comment, setComment] = useState('');
+  const [commentList, setCommentList] = useState([]);
+
+  useEffect(() => {
+    const run = async () => {
+      const data = await AsyncStorage.getItem('comments_' + props.id);
+
+      if (data) {
+        setCommentList(JSON.parse(data));
+      }
+    };
+
+    run();
+  });
 
   const postComment = async () => {
-    storeData().then(() => {
-      getData().then(value => {
-        console.log(value);
-      });
-    });
+    const newCommentList = [
+      ...commentList,
+      {
+        comment: comment,
+        user: 'toto',
+      },
+    ];
+
+    setCommentList(newCommentList);
+    await AsyncStorage.setItem(
+      'comments_' + props.id,
+      JSON.stringify(newCommentList),
+    );
   };
 
   const storeData = async () => {
@@ -55,6 +76,14 @@ const Comment = () => {
           <Text>Envoyer commentaire</Text>
         </TouchableOpacity>
       </View>
+      <FlatList
+        extraData={commentList}
+        renderItem={({item, index}) => {
+          <Text>
+            {item.user} + {item.comment} tototo
+          </Text>;
+        }}
+      />
     </View>
   );
 };
