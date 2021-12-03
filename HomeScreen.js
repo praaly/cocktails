@@ -41,9 +41,8 @@ const HomeScreen = ({navigation}) => {
         onChangeText={setValueSearch}
         value={valueSearch}
       />
-      <TextInput style={styles.searchBar} onChangeText={setValueSearch} />
       <View style={styles.titleBox}>
-        <Text style={styles.title}>TWITCH SEARCH</Text>
+        <Text style={styles.title}>COKTAIL SEARCH</Text>
       </View>
       <View style={styles.todoForm}>
         <FlatList
@@ -52,24 +51,24 @@ const HomeScreen = ({navigation}) => {
           numColumns={2}
           renderItem={({item, index}) => {
             return (
-              <View style={styles.todoFormClass}>
-                <Text style={styles.todoFormText} ref={index}>
-                  {item.strDrink}
-                </Text>
-                <Image
-                  source={{uri: item.strDrinkThumb}}
-                  style={styles.tinyLogo}
-                  resizeMode="cover"
-                />
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate('Details', {
-                      data: item,
-                    })
-                  }>
-                  <Text>Détails</Text>
-                </TouchableOpacity>
-              </View>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('Details', {
+                    data: item,
+                  })
+                }
+                style={styles.todoFormClass}>
+                <View style={styles.todoFormClass}>
+                  <Text style={styles.todoFormText} ref={index}>
+                    {item.strDrink}
+                  </Text>
+                  <Image
+                    source={{uri: item.strDrinkThumb}}
+                    style={styles.tinyLogo}
+                    resizeMode="cover"
+                  />
+                </View>
+              </TouchableOpacity>
             );
           }}
         />

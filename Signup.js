@@ -1,6 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   SafeAreaView,
@@ -26,6 +27,60 @@ const SignUp = ({navigation}) => {
   const equalPwds = useMemo(() => {
     return password === passwordConfirmation;
   }, [password, passwordConfirmation]);
+
+  function validateMail() {
+    if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function validatePassword() {
+    if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(password)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  const storeData = async () => {
+    try {
+      await AsyncStorage.setItem('user_' + email, password);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('user_' + email);
+      return value;
+    } catch (e) {
+      console.log('erreur : ' + e);
+    }
+  };
+
+  const validateSignUp = () => {
+    if (validateMail()) {
+      if (password === passwordConfirmation) {
+        getData().then(value => {
+          console.log(value);
+          if (!value) {
+            storeData();
+            alert('user successfully registered');
+            navigation.navigate('Login');
+          } else {
+            alert('user already exists');
+          }
+        });
+      } else {
+        alert('mots de passe non concordant');
+      }
+    } else {
+      alert('mail non valide');
+    }
+  };
 
   return (
     <SafeAreaView>
@@ -65,7 +120,7 @@ const SignUp = ({navigation}) => {
             <TouchableOpacity
               style={styles.buttonSignUp}
               onPress={() => {
-                navigation.navigate('Login');
+                validateSignUp();
               }}>
               <Text
                 style={{

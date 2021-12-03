@@ -1,6 +1,7 @@
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React, {useEffect, useMemo, useState} from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,8 +15,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-const Stack = createNativeStackNavigator();
-
 const Login = ({navigation}) => {
   const [email, setFirstName] = useState('');
   const [password, setPassword] = useState('');
@@ -25,6 +24,29 @@ const Login = ({navigation}) => {
     setIsPasswordValid(password.length > 3);
   }, [password]);
 
+  const getData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('user_' + email);
+      return value;
+    } catch (e) {
+      console.log('erreur : ' + e);
+    }
+  };
+
+  const tryLogin = async () => {
+    try {
+      getData().then(value => {
+        if (value === password) {
+          navigation.navigate('Home');
+        } else {
+          alert('Adresse mail ou mot de passe erronés');
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <SafeAreaView>
       <ScrollView keyboardShouldPersistTaps="handled">
@@ -33,7 +55,7 @@ const Login = ({navigation}) => {
           <Image
             style={styles.profil}
             source={{
-              uri: 'https://cdn.futura-sciences.com/buildsv6/images/wide1920/6/5/2/652a7adb1b_98148_01-intro-773.jpg',
+              uri: 'https://www.destinationcocktails.fr/wp-content/uploads/2021/06/079_tropicalkamasutra.jpg',
             }}
           />
           <View style={styles.formContainer}>
@@ -56,7 +78,7 @@ const Login = ({navigation}) => {
             <TouchableOpacity
               style={styles.buttonLogin}
               onPress={() => {
-                navigation.navigate('Home');
+                tryLogin();
               }}>
               <Text
                 style={{

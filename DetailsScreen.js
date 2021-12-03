@@ -1,10 +1,15 @@
 import React from 'react';
+<<<<<<< HEAD
 import {StyleSheet, FlatList, Text, View} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import NavigationBar from './navigationBar';
+=======
+import {StyleSheet, FlatList, Text, View, Image} from 'react-native';
+>>>>>>> etienne
 
 const DetailsScreen = props => {
   const data = props.route.params.data;
+  console.log(data);
   const ingredients = [];
   Object.keys(data).forEach((value, key) => {
     if (value.startsWith('strIngredient') && data[value] != null) {
@@ -12,10 +17,26 @@ const DetailsScreen = props => {
     }
   });
   return (
+<<<<<<< HEAD
     <SafeAreaView style={{flex: 1}}>
       <FlatList
         data={ingredients}
         style={styles.box}
+=======
+    <View>
+      <Text style={styles.detailsText}>{data.strDrink}</Text>
+      <View style={({justifyContent: 'center'}, {width: '100%'})}>
+        <Image
+          source={{uri: data.strDrinkThumb}}
+          style={styles.tinyLogo}
+          resizeMode="cover"
+        />
+      </View>
+      <Text style={styles.detailsText}>Ingredients</Text>
+      <FlatList
+        data={ingredients}
+        style={styles.flatBox}
+>>>>>>> etienne
         numColumns={2}
         renderItem={({item, index}) => {
           return (
@@ -83,6 +104,16 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderColor: 'black',
+  },
+  drinkName: {
+    fontSize: 35,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  detailsText: {
+    fontSize: 25,
+    textAlign: 'center',
+    marginBottom: 20,
   },
 });
 
