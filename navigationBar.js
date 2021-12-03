@@ -16,7 +16,7 @@ const NavigationBar = () => {
 
 const styles = StyleSheet.create({
   boxBlue: {
-    backgroundColor: 'grey',
+    backgroundColor: '#337',
   },
   icons: {
     flexDirection: 'row',
