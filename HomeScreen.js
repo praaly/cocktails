@@ -13,10 +13,17 @@ import {
 } from 'react-native';
 import NavigationBar from './navigationBar';
 
+/**
+ * @HomeScreen
+ * api send all the available cocktails
+ * @returns page of cocktails
+ **/
 const HomeScreen = ({navigation}) => {
   const [valueSearch, setValueSearch] = useState('');
   const [data, setData] = useState([]);
 
+  // send a reqsuest with axios from the cocktails api
+  //-> return the list of available cocktails with (the name, thumbmail image, and the list of ingredients).
   useMemo(() => {
     {
       const kraken = axios.create({
@@ -33,16 +40,19 @@ const HomeScreen = ({navigation}) => {
     }
   }, [valueSearch]);
 
+  //return homescreen view
   return (
     <SafeAreaView style={styles.box}>
-      <TextInput
-        style={styles.searchBar}
-        placeholder="Search"
-        onChangeText={setValueSearch}
-        value={valueSearch}
-      />
       <View style={styles.titleBox}>
-        <Text style={styles.title}>COKTAIL SEARCH</Text>
+        <Text style={styles.title}>COCKTAIL SEARCH</Text>
+      </View>
+      <View style={styles.search}>
+        <TextInput
+          style={styles.searchBar}
+          placeholder="SEARCH A COCKTAIL"
+          onChangeText={setValueSearch}
+          value={valueSearch}
+        />
       </View>
       <View style={styles.todoForm}>
         <FlatList
@@ -58,8 +68,8 @@ const HomeScreen = ({navigation}) => {
                   })
                 }
                 style={styles.todoFormClass}>
-                <View style={styles.todoFormClass}>
-                  <Text style={styles.todoFormText} ref={index}>
+                <View style={styles.todoFormClass2}>
+                  <Text style={styles.todoFormTextTitle} ref={index}>
                     {item.strDrink}
                   </Text>
                   <Image
@@ -81,6 +91,7 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   box: {
     flex: 1,
+    backgroundColor: '#ded1bb',
   },
   titleBox: {
     flex: 1,
@@ -92,8 +103,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   tinyLogo: {
-    width: 100,
-    height: 100,
+    width: 150,
+    height: 150,
   },
   todoForm: {
     flex: 8,
@@ -101,6 +112,13 @@ const styles = StyleSheet.create({
   },
   todoFormText: {
     color: 'white',
+  },
+  todoFormTextTitle: {
+    color: 'white',
+    backgroundColor: '#337',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: 20,
   },
   todoFormBtnText: {
     color: 'white',
@@ -129,6 +147,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderColor: 'black',
+    justifyContent: 'center',
   },
 });
 
