@@ -13,6 +13,9 @@ import HomeScreen from './HomeScreen';
 import DetailsScreen from './DetailsScreen';
 import LoginScreen from './Login';
 import SignUp from './Signup';
+import FavoriteIcon from './favorite';
+import DisconnectIcon from './disconnectIcon';
+import FavoritePage from './favoritePage';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -24,6 +27,9 @@ const App = () => {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Details" component={DetailsScreen} />
+        <Stack.Screen name="Disconnect" component={DisconnectIcon} />
+        <Stack.Screen name="Favorite" component={FavoriteIcon} />
+        <Stack.Screen name="FavoritePage" component={FavoritePage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

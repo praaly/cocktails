@@ -1,5 +1,6 @@
 import React, {useMemo, useState} from 'react';
 import axios from 'axios';
+import FavoriteIcon from './favorite';
 import {
   SafeAreaView,
   StyleSheet,
@@ -10,6 +11,7 @@ import {
   Image,
   View,
 } from 'react-native';
+import NavigationBar from './navigationBar';
 
 const HomeScreen = ({navigation}) => {
   const [valueSearch, setValueSearch] = useState('');
@@ -72,7 +74,7 @@ const HomeScreen = ({navigation}) => {
           }}
         />
       </View>
-      <View style={styles.boxBlue} />
+      <NavigationBar />
     </SafeAreaView>
   );
 };

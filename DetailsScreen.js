@@ -1,5 +1,7 @@
 import React from 'react';
 import {StyleSheet, FlatList, Text, View} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import NavigationBar from './navigationBar';
 
 const DetailsScreen = props => {
   const data = props.route.params.data;
@@ -10,20 +12,23 @@ const DetailsScreen = props => {
     }
   });
   return (
-    <FlatList
-      data={ingredients}
-      style={styles.flatBox}
-      numColumns={2}
-      renderItem={({item, index}) => {
-        return (
-          <View style={styles.todoFormClass}>
-            <Text style={styles.todoFormText} ref={index}>
-              {ingredients[index]}
-            </Text>
-          </View>
-        );
-      }}
-    />
+    <SafeAreaView style={{flex: 1}}>
+      <FlatList
+        data={ingredients}
+        style={styles.box}
+        numColumns={2}
+        renderItem={({item, index}) => {
+          return (
+            <View style={styles.todoFormClass}>
+              <Text style={styles.todoFormText} ref={index}>
+                {ingredients[index]}
+              </Text>
+            </View>
+          );
+        }}
+      />
+      <NavigationBar />
+    </SafeAreaView>
   );
 };
 
