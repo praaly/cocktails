@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
   detailsTextTitle: {
     fontSize: 25,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 5,
     color: 'white',
     backgroundColor: '#337',
   },

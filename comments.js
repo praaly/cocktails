@@ -77,7 +77,7 @@ const Comment = props => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={commentList}
+        extraData={commentList}
         renderItem={({item, index}) => {
           <Text>
             {item.user} + {item.comment} tototo
