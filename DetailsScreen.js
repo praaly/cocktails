@@ -1,8 +1,9 @@
 import React from 'react';
-import {StyleSheet, FlatList, Text, View} from 'react-native';
+import {StyleSheet, FlatList, Text, View, Image} from 'react-native';
 
 const DetailsScreen = props => {
   const data = props.route.params.data;
+  console.log(data);
   const ingredients = [];
   Object.keys(data).forEach((value, key) => {
     if (value.startsWith('strIngredient') && data[value] != null) {
@@ -10,20 +11,33 @@ const DetailsScreen = props => {
     }
   });
   return (
-    <FlatList
-      data={ingredients}
-      style={styles.flatBox}
-      numColumns={2}
-      renderItem={({item, index}) => {
-        return (
-          <View style={styles.todoFormClass}>
-            <Text style={styles.todoFormText} ref={index}>
-              {ingredients[index]}
-            </Text>
-          </View>
-        );
-      }}
-    />
+    <View>
+      <Text style={styles.detailsText}>{data.strDrink}</Text>
+      <View style={({justifyContent: 'center'}, {width: '100%'})}>
+        <Image
+          source={{uri: data.strDrinkThumb}}
+          style={styles.tinyLogo}
+          resizeMode="cover"
+        />
+      </View>
+      <Text style={styles.detailsText}>Ingredients</Text>
+      <FlatList
+        data={ingredients}
+        style={styles.flatBox}
+        numColumns={2}
+        renderItem={({item, index}) => {
+          return (
+            <View style={styles.todoFormClass}>
+              <Text style={styles.todoFormText} ref={index}>
+                {ingredients[index]}
+              </Text>
+            </View>
+          );
+        }}
+      />
+      <Text style={styles.detailsText}>How to serve :</Text>
+      <Text>{data.strInstructions}</Text>
+    </View>
   );
 };
 
@@ -78,6 +92,16 @@ const styles = StyleSheet.create({
     height: 50,
     borderWidth: 2,
     borderColor: 'black',
+  },
+  drinkName: {
+    fontSize: 35,
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  detailsText: {
+    fontSize: 25,
+    textAlign: 'center',
+    marginBottom: 20,
   },
 });
 
