@@ -1,16 +1,6 @@
 import React from 'react';
-import {
-  StyleSheet,
-  FlatList,
-  Text,
-  View,
-  Image,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import Comment from './comments';
-import {Icon} from 'react-native-elements';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {StyleSheet, FlatList, Text, View, Image} from 'react-native';
+import Comment from '../components/comments';
 /**
  * @DetailsScreen
  * take the data from the api in value and return the details page.
@@ -123,27 +113,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     padding: 10,
-  },
-  boxBlue: {
-    flex: 1,
-    backgroundColor: 'blue',
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-  },
-  searchBar: {
-    width: '80%',
-    height: 50,
-    borderWidth: 2,
-    borderColor: 'black',
-  },
-  drinkName: {
-    fontSize: 35,
-    textAlign: 'center',
-    marginBottom: 20,
   },
   detailsText: {
     fontSize: 25,

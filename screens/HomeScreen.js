@@ -107,9 +107,6 @@ const styles = StyleSheet.create({
     flex: 8,
     padding: 20,
   },
-  todoFormText: {
-    color: 'white',
-  },
   todoFormTextTitle: {
     color: 'white',
     backgroundColor: '#337',
@@ -117,26 +114,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontSize: 20,
   },
-  todoFormBtnText: {
-    color: 'white',
-    justifyContent: 'center',
-    textAlign: 'center',
-  },
   todoFormClass: {
     width: '50%',
     backgroundColor: '#333',
     alignItems: 'center',
     justifyContent: 'space-around',
-    padding: 10,
-  },
-  boxBlue: {
-    flex: 1,
-    backgroundColor: 'blue',
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
     padding: 10,
   },
   searchBar: {

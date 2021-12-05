@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Text,
   TouchableOpacity,
@@ -38,7 +38,7 @@ const Comment = props => {
         user: 'toto',
       },
     ];
-
+    console.log(" c'est la que ca se passe : " + newCommentList);
     setCommentList(newCommentList);
     await AsyncStorage.setItem(
       'comments_' + props.id,
@@ -77,11 +77,14 @@ const Comment = props => {
         </TouchableOpacity>
       </View>
       <FlatList
-        extraData={commentList}
+        data={commentList}
+        style={{height: 200, width: 200, backgroundColor: 'red'}}
         renderItem={({item, index}) => {
-          <Text>
-            {item.user} + {item.comment} tototo
-          </Text>;
+          return (
+            <Text>
+              {item.user} : {item.comment}
+            </Text>
+          );
         }}
       />
     </View>
@@ -89,15 +92,6 @@ const Comment = props => {
 };
 
 const styles = StyleSheet.create({
-  box: {
-    flex: 1,
-    backgroundColor: '#ded1bb',
-  },
-  titleBox: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   inputComment: {
     borderWidth: 2,
     width: '80%',
